@@ -4,7 +4,7 @@
 
     .DESCRIPTION
     This time-triggered Azure function automatically checks active VMs among set of subscriptions user has access to. 
-    List of active VMs among all subscriptions is CSV formatted and saved in separate table storage row for every particular subscription.
+    List of active VMs is CSV formatted and saved in separate table storage row for each particular subscription.
     For quick and effective resources search, Azure Resource Graph was used.  
 
     .PARAMETER Timer
@@ -39,13 +39,13 @@ $currentUTCtime = (Get-Date).ToUniversalTime()
 
 # The 'IsPastDue' property is 'true' when the current function invocation is later than scheduled.
 if ($Timer.IsPastDue) {
-    Write-Host "PowerShell timer is running late!"
+    Write-Information "PowerShell timer is running late!"
 }
 
 # Write an information log with the current time.
-Write-Host "PowerShell timer trigger function ran! TIME: $currentUTCtime"
+Write-Information "PowerShell timer trigger function ran! TIME: $currentUTCtime"
 
-# Get storage account and table context
+# Get storage account and table context.
 $ctx = Get-AzStorageAccount -Name bdvmschecker -ResourceGroupName BDVMsChecker | Select-Object -ExpandProperty Context
 $cloudTable = (Get-AzStorageTable -Name ActiveVMs -Context $ctx).CloudTable
 
@@ -59,7 +59,7 @@ $subscriptionList = (Get-AzSubscription).Id
 foreach ($sub in $subscriptionList) {
     
     # Build the KQL query and pack it in JSON along with particular subscription ID
-    $QueryPayload = @"
+    $queryPayload = @"
     {
         "subscriptions": ["$sub"],
         "query": "Resources | where type == 'microsoft.compute/virtualmachines' `
@@ -69,7 +69,7 @@ foreach ($sub in $subscriptionList) {
 
     # Send the HTTP request to Resource Graph endpoint and get the data using built query
     $VMsList = [string[]]((Invoke-AzRestMethod -Path "/providers/Microsoft.ResourceGraph/resources?api-version=2020-04-01-preview" `
-                -Payload $QueryPayload -Method POST).Content | ConvertFrom-Json).data.rows
+                -Payload $queryPayload -Method POST).Content | ConvertFrom-Json).data.rows
 
     # Generate proper information to upload (listing in CSV format)
     if ($VMsList.Count -gt 0) {
