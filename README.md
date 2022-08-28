@@ -27,6 +27,11 @@ Once a day at night time-triggered BDVMsCheckerFunction is executed. Initially, 
 <img src="https://github.com/Talamakk/BDVMsCheckerProject/blob/main/Images/2.jpg" width="700">
 
 
+## SendGrid Integration
+The additional feature for this project would be sending an e-mail with active VMs apart from saving data in the table. It's possible to achieve this using [SendGrid](https://docs.sendgrid.com/for-developers/partners/microsoft-azure).  
+Integration with SendGrid is in progress and project documentation will be updated when it's done.
+
+
 ## Additional Useful Links for this project
 [Time-triggered function](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=in-process&pivots=programming-language-powershell)  
 [CRON format expressions](https://en.wikipedia.org/wiki/Cron)  
