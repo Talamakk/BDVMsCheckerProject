@@ -27,8 +27,9 @@
 
     .LINKS
     Useful documentation:
-    https://docs.microsoft.com/en-us/azure/governance/resource-graph/overview
-    https://docs.microsoft.com/en-us/azure/storage/tables/table-storage-overview
+    https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=in-process&pivots=programming-language-powershell
+    https://en.wikipedia.org/wiki/Cron
+    https://docs.microsoft.com/pl-pl/rest/api/compute/virtual-machines
     https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/
     https://docs.sendgrid.com/for-developers/partners/microsoft-azure-2021
     https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference-powershell?tabs=portal#environment-variables

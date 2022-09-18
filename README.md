@@ -28,13 +28,17 @@ Once a day at night time-triggered BDVMsCheckerFunction is executed. Initially, 
 
 
 ## SendGrid Integration
-The additional feature for this project would be sending an e-mail with active VMs apart from saving data in the table. It's possible to achieve this using [SendGrid](https://docs.sendgrid.com/for-developers/partners/microsoft-azure).  
-Integration with SendGrid is in progress and project documentation will be updated when it's done.
+The additional feature for this project is integrating it with [SendGrid](https://docs.sendgrid.com/for-developers/partners/microsoft-azure) service and send the e-mails with active VMs apart from saving data in the table. 
 
+
+<img src="https://github.com/Talamakk/BDVMsCheckerProject/blob/main/Images/SendGridDemo.jpg" width="850">
+
+
+The easiest way to integrate Azure function with SendGrid is calling SendGrid API in order to send the e-mails. Setting up a SendGrid subscription (free tier is enough) and creating sender identity will be necessary to get the SendGrid API key. It's never good idea to hard code secrets like an API key, so in this project it's stored as an app's environmental variable. [SendGrid API documentation](https://docs.sendgrid.com/for-developers/sending-email/api-getting-started) enables to build valid header and body of the requests, what was integrated into function script. To keep the script code clear, two separate functionalities (saving to table storage and sending an e-mail) were distributed into separate functions: *SaveToTableStorage* and *SendEmail*.
 
 ## Additional Useful Links for this project
 [Time-triggered function](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=in-process&pivots=programming-language-powershell)  
 [CRON format expressions](https://en.wikipedia.org/wiki/Cron)  
 [Microsoft VM compute REST API](https://docs.microsoft.com/pl-pl/rest/api/compute/virtual-machines)  
-[KQL Tutorial](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/tutorial?pivots=azuredataexplorer) 
-
+[KQL Tutorial](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/tutorial?pivots=azuredataexplorer)
+[Environmental Variables](https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference-powershell?tabs=portal#environment-variables)
